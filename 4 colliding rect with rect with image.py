@@ -5,10 +5,14 @@ screen = pygame.display.set_mode((800,600))
 w, h = pygame.display.get_surface().get_size()
 font = pygame.font.SysFont('Arial', 20)
 
-
 rect1 = pygame.Rect(100, 250, 50, 50)
+rect2 = pygame.Rect(110, 250, 50, 50)
 
 # Pygame sprite
+m_falcon = pygame.image.load("falcon.png").convert_alpha()
+m_falcon = pygame.transform.scale(m_falcon, (135/2,150/2))
+m_falcon = pygame.transform.rotate(m_falcon,(0))
+
 player_x = w/2
 player_y = h/2
 
@@ -46,22 +50,21 @@ while running:
     checkkeys()
     screen.fill((255, 255, 255))
 
-    # Method 1 - Variable of rect before the loop then referenced during while loop as a variable
+
     pygame.draw.rect(screen, (0, 0, 255), rect1)
-
-    # Method 2 - Rect as a variable inserted into draw rect inline with while loop
-    rect2 = pygame.Rect(player_x, player_y, 50, 50)
-    pygame.draw.rect(screen, (255, 0, 0), rect2)
-
-    # Method 3 - Rect line directly included in draw rect
-    pygame.draw.rect(screen, (0, 255, 0), (200, 250, 50, 50))
-
     
-    collide = pygame.Rect.colliderect(rect1, rect2)
-    displaytext(collide) # function display text
+    # rect2 = pygame.Rect(player_x, player_y, 50, 50)
+    # pygame.draw.rect(screen, (255, 0, 0), rect2)
+
+    m_falcon_rect = m_falcon.get_rect(topleft=(player_x, player_y))
+
+    collide = pygame.Rect.colliderect(rect1, m_falcon_rect)
+    screen.blit(m_falcon, m_falcon_rect)
+
+
+    displaytext(collide)
     
     pygame.display.flip()
     clock.tick(60)
 
-# Done! Time to quit.
 pygame.quit()
