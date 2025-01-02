@@ -5,11 +5,12 @@ class Player:
         self.image = setImage
         self.width = setWidth
         self.height = setHeight
-        self.surf = pygame.image.load(self.image).convert_alpha()
+        self.surf = pygame.image.load(self.image).convert()
+        self.surf.set_colorkey((255, 255, 255))
         self.surf = pygame.transform.scale(self.surf, (self.width, self.height))
         self.surf = pygame.transform.rotate(self.surf,(0))
         self.dmgsurf = self.surf.copy()
-        self.dmgsurf.fill((255, 0, 0, 0), special_flags=pygame.BLEND_RGBA_MULT)
+        self.dmgsurf.fill((255, 0, 0, 255), special_flags=pygame.BLEND_RGBA_MULT)
         self.xpos = 400
         self.ypos = 500
         self.rect = self.surf.get_rect(topleft=(self.xpos, self.ypos))
